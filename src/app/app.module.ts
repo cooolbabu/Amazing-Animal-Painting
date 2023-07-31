@@ -10,9 +10,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { CartModule } from './cart/cart.module';
+import { StoreModule } from '@ngrx/store';
+import { BookListComponent } from './book-list/book-list.component';
+import { BookReducer } from './books/books.reducer';
+import { AppState } from './app.state';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { BookEffects } from './books/book.effects';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, BookListComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -23,6 +30,9 @@ import { CartModule } from './cart/cart.module';
     BrowserAnimationsModule,
     MatToolbarModule,
     MatButtonModule,
+    StoreModule.forRoot<AppState>({ book: BookReducer }),
+    EffectsModule.forRoot([BookEffects]),
+    StoreDevtoolsModule.instrument(),
   ],
   providers: [],
   bootstrap: [AppComponent],
